@@ -1,0 +1,29 @@
+package com.myspace.demo_project;
+
+import com.myspace.demo_project.LoanOutcome;
+import com.myspace.demo_project.LoanRequest;
+
+
+rule "Below 10000"
+    when
+        result : LoanOutcome( )
+        LoanRequest( loanAmount < 10000 )
+    then
+        result.setOutcome("APPROVED");
+end
+
+rule "More than 10000 and credit level is greater than or equals to 7"
+    when
+        result : LoanOutcome( )
+        LoanRequest( loanAmount > 10000 , creditLevel >= 7 )
+    then
+        result.setOutcome("APPROVED");
+end
+
+rule "More than 10000 and credit level is lesser than 7"
+    when
+        result : LoanOutcome( )
+        LoanRequest( loanAmount > 10000 , creditLevel < 7 )
+    then
+        result.setOutcome("REJECTED");
+end
